@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class NPCScript : MonoBehaviour
+{
+    CircleCollider2D myCircleCollider2D;
+    GameObject childObject;
+
+    public TextMeshProUGUI dialogueText;
+    public string[] dialogue;
+
+    bool isDialogueDisplayed;
+
+    void Start()
+    {
+        myCircleCollider2D = GetComponent<CircleCollider2D>();
+        childObject = transform.Find("Circle").gameObject;
+    }
+    private bool isInRange;
+
+    void Update()
+    {
+        if(myCircleCollider2D.IsTouchingLayers(LayerMask.GetMask("Player")))
+        {
+            childObject.SetActive(true);
+            isInRange = true;
+        }
+        else 
+        {
+            childObject.SetActive(false);
+            isInRange = false;
+        }
+        if(isInRange && Input.GetKeyDown(KeyCode.E) && !isDialogueDisplayed)
+        {
+            isDialogueDisplayed = true;
+            StartCoroutine(showDialogue());
+        }
+    }
+
+    IEnumerator showDialogue()
+    {
+        for (int i = 0; i < dialogue.Length; i++)
+        {
+            FindObjectOfType<DialogueUI>().Dialogue();
+            dialogueText.text = dialogue[i];
+            FindObjectOfType<PlayerController>().NoMove();
+            yield return new WaitForSeconds(0.1f);
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
+            dialogueText.text = "";
+            FindObjectOfType<DialogueUI>().NoDialogue();
+            FindObjectOfType<PlayerController>().YesMove();
+        }
+        isDialogueDisplayed = false;
+    }
+}
+
+
