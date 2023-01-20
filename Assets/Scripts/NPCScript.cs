@@ -12,6 +12,7 @@ public class NPCScript : MonoBehaviour
     public string[] dialogue;
 
     bool isDialogueDisplayed;
+    bool isPaused = false;
 
     void Start()
     {
@@ -32,7 +33,7 @@ public class NPCScript : MonoBehaviour
             childObject.SetActive(false);
             isInRange = false;
         }
-        if(isInRange && Input.GetKeyDown(KeyCode.E) && !isDialogueDisplayed)
+        if(isInRange && Input.GetKeyDown(KeyCode.E) && !isDialogueDisplayed && !isPaused)
         {
             isDialogueDisplayed = true;
             StartCoroutine(showDialogue());
@@ -47,13 +48,14 @@ public class NPCScript : MonoBehaviour
             dialogueText.text = dialogue[i];
             FindObjectOfType<PlayerController>().NoMove();
             yield return new WaitForSeconds(0.1f);
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape));
             dialogueText.text = "";
             FindObjectOfType<DialogueUI>().NoDialogue();
             FindObjectOfType<PlayerController>().YesMove();
         }
         isDialogueDisplayed = false;
     }
+
 }
 
 
