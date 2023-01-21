@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
             child.gameObject.SetActive(false);
         }       
     }
-
+    // I need to update this so only the items you have show up.
     public void Pause()
     {
         foreach (Transform child in transform)
