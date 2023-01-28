@@ -48,6 +48,7 @@ public class NPCScript : MonoBehaviour
             dialogueText.text = dialogue[i];
             FindObjectOfType<PlayerController>().NoMove();
             yield return new WaitForSeconds(0.1f);
+            //show buttons and wait for response
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape));
             dialogueText.text = "";
             FindObjectOfType<DialogueUI>().NoDialogue();

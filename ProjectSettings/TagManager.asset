@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Player
   - NPC
-  - 
+  - Door
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 114249753
+    locked: 0
+  - name: Door
+    uniqueID: 2333838279
     locked: 0
   - name: Collision
     uniqueID: 1804534267
