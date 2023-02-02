@@ -21,7 +21,17 @@ public class Doors : MonoBehaviour
     {
         if(myBoxCollider2D.IsTouchingLayers(LayerMask.GetMask("Player")) && Input.GetKeyDown(KeyCode.E))
         {
-            player.transform.position = new Vector2(xPlace, yPlace);
+            FindObjectOfType<Fade>().FadeIt();
+            FindObjectOfType<PlayerController>().NoMove();
+            StartCoroutine(Teleport());
         }
     }
+
+    IEnumerator Teleport()
+    {
+        yield return new WaitForSeconds (2.5f);
+        player.transform.position = new Vector2(xPlace, yPlace);
+        yield return null;
+    }
+
 }

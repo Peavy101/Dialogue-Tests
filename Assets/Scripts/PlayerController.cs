@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        moveInput.y = 0;
     }
 
     void OnPause()
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
     }
     public void YesMove()
     {
-        moveSpeed = 2f;
+        moveSpeed = 4f;
     }
 
 }
