@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        moveInput.y = 0;
     }
 
     void OnPause()
