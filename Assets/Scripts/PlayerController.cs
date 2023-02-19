@@ -9,13 +9,18 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
 
+    public GameObject inventory;
+    public GameObject skateboardImage;
+
     private Vector2 movement;
     bool isPaused = false;
+    bool isSkateboarding = false;
 
-    [SerializeField] float moveSpeed = 2f;
+    [SerializeField] float moveSpeed = 4f;
 
     void Start()
     {
+        skateboardImage.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -27,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        skateboardManager();
         // Get the movement input from the player
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -37,9 +43,7 @@ public class PlayerController : MonoBehaviour
         // Update the Animator parameters based on the movement input
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
-        
-        // Move the character
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
     }
 
     void OnMove(InputValue value)
@@ -72,4 +76,20 @@ public class PlayerController : MonoBehaviour
         moveSpeed = 4f;
     }
 
+    void skateboardManager()
+    {
+        if(Input.GetKeyDown(KeyCode.X) && inventory.GetComponent<Inventory>().hasSkateboard && !isSkateboarding)
+        {
+            Debug.Log("Woohoo you're skateboarding!");
+            skateboardImage.gameObject.SetActive(true);
+            isSkateboarding = true;
+            moveSpeed = 8f;
+        }
+        else if(Input.GetKeyDown(KeyCode.X) && inventory.GetComponent<Inventory>().hasSkateboard && isSkateboarding)
+        {
+            skateboardImage.SetActive(false);
+            isSkateboarding = false;
+            moveSpeed = 4f;
+        }
+    }
 }

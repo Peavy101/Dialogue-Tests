@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
 
     public Button skateboardIcon;
     public Button posterIcon;
-    //public Image posterImage;
 
     void Start()
     {
@@ -20,13 +19,12 @@ public class Inventory : MonoBehaviour
             child.gameObject.SetActive(false);
         }       
     }
-    // I need to update this so only the items you have show up.
+
     public void Pause()
     {
         Debug.Log("hasPosters: " + hasPosters);
         if(hasPosters)
         {
-            //posterImage.gameObject.SetActive(true);
             posterIcon.gameObject.SetActive(true);
         }
         if(hasSkateboard)
@@ -45,10 +43,14 @@ public class Inventory : MonoBehaviour
             child.gameObject.SetActive(false);
         }
     }
-
     public void PostersGet()
     {
         Debug.Log("You got the posters!");
         hasPosters = true;
+    }
+    public void SkateboardGet()
+    {
+        Debug.Log("You got the skateboard!");
+        hasSkateboard = true;      
     }
 }
